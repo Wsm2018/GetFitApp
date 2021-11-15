@@ -5,15 +5,40 @@ import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Forgot from "./Auth/ForgotPassword";
 import Home from "./App/Home";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+
 import firebase from "firebase";
 import "firebase/app";
 import "firebase/auth";
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 import db from "./db";
+
+const AppNavigator = createStackNavigator(
+  {
+    Login,
+    Register,
+    Forgot
+  },
+  {
+    headerMode: "none",
+  }
+);
+
+const AuthContainer = createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(
+  createMaterialBottomTabNavigator(
+    {
+      Home: { screen: Home },
+    },
+    {
+      initialRouteName: "Home",
+      activeColor: "#f0edf6",
+      inactiveColor: "#3e2465",
+      barStyle: { backgroundColor: "#694fad" },
+    }
+  )
+);
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(null);
@@ -22,40 +47,5 @@ export default function App() {
     return firebase.auth().onAuthStateChanged(setLoggedIn);
   }, [loggedIn]);
 
-  return loggedIn ? (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-      </Tab.Navigator>
-      <StatusBar translucent backgroundColor="transparent" />
-    </NavigationContainer>
-  ) : (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Forgot"
-          component={Forgot}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-      <StatusBar translucent backgroundColor="transparent" />
-    </NavigationContainer>
-  );
+  return loggedIn ? <AppContainer /> : <AuthContainer />;
 }
-
