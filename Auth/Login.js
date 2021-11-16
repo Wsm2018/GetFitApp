@@ -16,28 +16,33 @@ import background from "../assets/background.jpg";
 import { Input, Icon, Divider } from "react-native-elements";
 import joi from "react-native-joi";
 import firebase from "firebase";
-
+import "firebase/auth"
 const { height, width } = Dimensions.get("screen");
-
+import db from "../db"
 const schema = joi.object().keys({
   email: joi.string().email(),
   password: joi.string().regex(/^[A-Za-z0-9]{8,30}$/),
 });
 
-export default function Login({navigation}) {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [showEmailErr, setShowEmailErr] = useState(false);
   const [password, setPassword] = useState("");
   const [showPasswordErr, setShowPasswordErr] = useState(false);
 
   const login = () => {
-    joi.validate({ email: email, password: password }, schema, (err, value) => {
-      if (err) {
-        Alert.alert(err.details[0].message);
-      } else {
-        firebase.auth().signInWithEmailAndPassword(email, password);
-      }
-    });
+    // joi.validate({ email: email, password: password }, schema, (err, value) => {
+    //   // if (err) {
+    //   //   // Alert.alert(err.details[0].message);
+    //   //   navigation.navigate("Register")
+    //   // } else {
+        
+    //   // }
+
+    // });
+    console.log("hello")
+    // db.auth().createUserWithEmailAndPassword(email, password)
+
   };
 
   return (
@@ -150,7 +155,7 @@ export default function Login({navigation}) {
           }}
         >
           <TouchableOpacity
-            onPress={login}
+            onPress={() => login()}
             style={{
               alignItems: "center",
               justifyContent: "center",
@@ -186,7 +191,7 @@ export default function Login({navigation}) {
             <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
               Don't have an account?{" "}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <TouchableOpacity onPress={() => props.navigation.navigate("Register")}>
               <Text
                 style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
               >
@@ -199,3 +204,6 @@ export default function Login({navigation}) {
     </TouchableWithoutFeedback>
   );
 }
+
+
+export default Login

@@ -1,10 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Forgot from "./Auth/ForgotPassword";
 import Home from "./App/Home";
+import Profile from "./App/Profile";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
@@ -21,7 +20,7 @@ const AppNavigator = createStackNavigator(
     Forgot
   },
   {
-    headerMode: "none",
+    headerMode: null,
   }
 );
 
@@ -30,6 +29,7 @@ const AppContainer = createAppContainer(
   createMaterialBottomTabNavigator(
     {
       Home: { screen: Home },
+      Profile: {screen: Profile}
     },
     {
       initialRouteName: "Home",

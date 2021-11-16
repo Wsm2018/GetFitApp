@@ -11,4 +11,4 @@ firebase.initializeApp({
   appId: "1:109958742407:web:cf0b0211e90f5b944c5322"
 });
 //firebase.functions()
-export default firebase.firestore();
+export default firebase;
