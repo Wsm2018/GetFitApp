@@ -25,19 +25,42 @@ const schema = joi.object().keys({
 });
 
 export default function Register(props) {
+  const { setAuthScreen } = props;
   const [email, setEmail] = useState("");
   const [showEmailErr, setShowEmailErr] = useState(false);
+  const [username, setUserName] = useState("");
+  const [showUserNameErr, setUserNameErr] = useState(false);
   const [password, setPassword] = useState("");
   const [showPasswordErr, setShowPasswordErr] = useState(false);
 
   const register = () => {
-    joi.validate({ email: email, password: password }, schema, (err, value) => {
-      if (err) {
-        Alert.alert(err.details[0].message);
-      } else {
-        firebase.auth().signInWithEmailAndPassword(email, password);
-      }
-    });
+    if (username === "" || email === "" || password === "") {
+      setShowEmailErr(true);
+      setUserNameErr(true);
+      setShowPasswordErr(true);
+      return;
+    }
+
+    if (
+      !new RegExp(
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$"
+      ).test(password)
+    ) {
+      setShowPasswordErr(true);
+      return;
+    }
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        firebase.firestore().collection("User").add({
+          email: email,
+          displayName: usernamer,
+          profilePic:
+            "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+        });
+      });
   };
 
   return (
@@ -76,7 +99,10 @@ export default function Register(props) {
               inputStyle={{ color: "white" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               inputContainerStyle={{ width: "90%" }}
-              onChangeText={setEmail}
+              onChangeText={(v) => {
+                setEmail(v);
+                if (showEmailErr) setShowEmailErr(false);
+              }}
               leftIcon={
                 <Icon
                   name="email"
@@ -110,9 +136,48 @@ export default function Register(props) {
           >
             <Input
               inputStyle={{ color: "white" }}
+              placeholder="UserName"
+              secureTextEntry={true}
+              onChangeText={(v) => {
+                if (showUserNameErr) setUserNameErr(false);
+                setUserName(v);
+              }}
+              inputContainerStyle={{ width: "90%" }}
+              leftIconContainerStyle={{ marginRight: "5%" }}
+              leftIcon={
+                <Icon name="user" type="entypo" size={24} color="white" />
+              }
+            />
+          </View>
+          {showUserNameErr ? (
+            <View
+              style={{
+                flex: 0.5,
+                justifyContent: "center",
+                marginLeft: "10%",
+              }}
+            >
+              <Text style={{ color: "red", fontSize: 15 }}>
+                * Invalid UserName
+              </Text>
+            </View>
+          ) : null}
+
+          <View
+            style={{
+              flex: 1,
+              marginLeft: "10%",
+              justifyContent: "center",
+            }}
+          >
+            <Input
+              inputStyle={{ color: "white" }}
               placeholder="Password"
               secureTextEntry={true}
-              onChangeText={setPassword}
+              onChangeText={(v) => {
+                setPassword(v);
+                if (showPasswordErr) setShowPasswordErr(false);
+              }}
               inputContainerStyle={{ width: "90%" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               leftIcon={
@@ -133,8 +198,8 @@ export default function Register(props) {
               </Text>
             </View>
           ) : null}
-
         </View>
+
         <View
           style={{
             flex: 0.4,
@@ -173,13 +238,13 @@ export default function Register(props) {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: "15%",
+              marginBottom: "10%",
             }}
           >
             <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
               Already have an account?{" "}
             </Text>
-            <TouchableOpacity onPress={props.navigation.navigate("Login")}>
+            <TouchableOpacity onPress={() => setAuthScreen("login")}>
               <Text
                 style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
               >

@@ -16,33 +16,29 @@ import background from "../assets/background.jpg";
 import { Input, Icon, Divider } from "react-native-elements";
 import joi from "react-native-joi";
 import firebase from "firebase";
-import "firebase/auth"
+import "firebase/auth";
 const { height, width } = Dimensions.get("screen");
-import db from "../db"
+import db from "../db";
 const schema = joi.object().keys({
   email: joi.string().email(),
   password: joi.string().regex(/^[A-Za-z0-9]{8,30}$/),
 });
 
 function Login(props) {
+  const { setAuthScreen } = props;
   const [email, setEmail] = useState("");
   const [showEmailErr, setShowEmailErr] = useState(false);
   const [password, setPassword] = useState("");
   const [showPasswordErr, setShowPasswordErr] = useState(false);
 
   const login = () => {
-    // joi.validate({ email: email, password: password }, schema, (err, value) => {
-    //   // if (err) {
-    //   //   // Alert.alert(err.details[0].message);
-    //   //   navigation.navigate("Register")
-    //   // } else {
-        
-    //   // }
-
-    // });
-    console.log("hello")
-    // db.auth().createUserWithEmailAndPassword(email, password)
-
+    joi.validate({ email: email, password: password }, schema, (err, value) => {
+      if (err) {
+        Alert.alert(err.details[0].message);
+      } else {
+        db.auth().signInWithEmailAndPassword(email, password);
+      }
+    });
   };
 
   return (
@@ -81,7 +77,7 @@ function Login(props) {
               inputStyle={{ color: "white" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               inputContainerStyle={{ width: "90%" }}
-              onChangeText={setEmail}
+              onChangeText={(v) => setEmail(v)}
               leftIcon={
                 <Icon
                   name="email"
@@ -117,7 +113,7 @@ function Login(props) {
               inputStyle={{ color: "white" }}
               placeholder="Password"
               secureTextEntry={true}
-              onChangeText={setPassword}
+              onChangeText={(v) => setPassword(v)}
               inputContainerStyle={{ width: "90%" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               leftIcon={
@@ -141,6 +137,7 @@ function Login(props) {
 
           <TouchableOpacity
             style={{ flex: 0.5, alignItems: "flex-end", marginRight: "15%" }}
+            onPress={() => setAuthScreen("forgot")}
           >
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
               Forgot Password ?
@@ -185,13 +182,13 @@ function Login(props) {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: "15%",
+              marginBottom: "10%",
             }}
           >
             <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
               Don't have an account?{" "}
             </Text>
-            <TouchableOpacity onPress={() => props.navigation.navigate("Register")}>
+            <TouchableOpacity onPress={() => setAuthScreen("register")}>
               <Text
                 style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
               >
@@ -205,5 +202,4 @@ function Login(props) {
   );
 }
 
-
-export default Login
+export default Login;

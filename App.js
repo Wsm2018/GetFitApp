@@ -12,24 +12,13 @@ import firebase from "firebase";
 import "firebase/app";
 import "firebase/auth";
 import db from "./db";
+import AuthContainer from "./Auth/AuthNav";
 
-const AppNavigator = createStackNavigator(
-  {
-    Login,
-    Register,
-    Forgot
-  },
-  {
-    headerMode: null,
-  }
-);
-
-const AuthContainer = createAppContainer(AppNavigator);
 const AppContainer = createAppContainer(
   createMaterialBottomTabNavigator(
     {
       Home: { screen: Home },
-      Profile: {screen: Profile}
+      Profile: { screen: Profile },
     },
     {
       initialRouteName: "Home",
@@ -47,5 +36,11 @@ export default function App() {
     return firebase.auth().onAuthStateChanged(setLoggedIn);
   }, [loggedIn]);
 
-  return loggedIn ? <AppContainer /> : <AuthContainer />;
+  return loggedIn !== false ? (
+    loggedIn !== null ? (
+      <AppContainer />
+    ) : (
+      <AuthContainer />
+    )
+  ) : null;
 }
