@@ -30,7 +30,7 @@ const AppContainer = createAppContainer(
 );
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(setLoggedIn);
