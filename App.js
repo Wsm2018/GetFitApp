@@ -22,9 +22,9 @@ const AppContainer = createAppContainer(
     },
     {
       initialRouteName: "Home",
-      activeColor: "#f0edf6",
-      inactiveColor: "#3e2465",
-      barStyle: { backgroundColor: "#694fad" },
+      activeColor: "#000",
+      inactiveColor: "#ff3333",
+      barStyle: { backgroundColor: "black" },
     }
   )
 );
