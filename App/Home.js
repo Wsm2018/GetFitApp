@@ -20,6 +20,7 @@ export default function Home(props) {
 	const [exercises, setExercises] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [selectedEx, setSelectedEx] = useState(null);
+	const [totalTime, setTotalTime] = useState(null);
 
 	useEffect(() => {
 		const unsub = db
@@ -53,147 +54,69 @@ export default function Home(props) {
 	const renderItem = ({ item }) => <Item item={item} />;
 
 	return (
-		<View style={{ flex: 1 }}>
-			<ScrollView
-				horizontal={true}
-				contentContainerStyle={{
-					flex: 1,
-					// backgroundColor: "red",
-					justifyContent: "space-evenly",
-					alignItems: "center",
-				}}
-			>
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-				
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-
-				<TouchableOpacity
-					style={{
-						backgroundColor: "#5c5454",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
-					}}
-				>
-					<Icon name="add" type="ionicon" size={24} color="white" />
-				</TouchableOpacity>
-				
-				{/* <TouchableOpacity onPress={() => setOpenModal(true)}>
-					<Text>Show Exercises</Text>
-				</TouchableOpacity> */}
-			</ScrollView>
-			<View style={{ flex: 1, backgroundColor: "green" }}></View>
-			<View style={{ flex: 4, backgroundColor: "blue" }}></View>
-			<View style={{ flex: 1, backgroundColor: "yellow" }}></View>
+		<View style={{ flex: 1, backgroundColor: "#F6F6F6" }}>
 			<View
 				style={{
-					flex: 1,
-					backgroundColor: "black",
+					flex: 3,
+					backgroundColor: "#FF7070",
+					borderBottomLeftRadius: 35,
+					borderBottomRightRadius: 35,
 					justifyContent: "center",
 					alignItems: "center",
 				}}
 			>
-				<TouchableOpacity
+				<Text
 					style={{
-						backgroundColor: "#ff3333",
-						borderRadius: 50,
-						width: width / 6,
-						height: "30%",
-						flex: 1,
-						justifyContent: "center",
-						alignItems: "center",
-						marginTop: "5%",
+						color: "white",
+						fontFamily: "Montserrat",
+						fontWeight: "bold",
+						fontSize: 64,
 					}}
 				>
-					<Icon name="play" type="ionicon" size={24} color="white" />
+					{totalTime ? totalTime : "00:00"}
+				</Text>
+			</View>
+
+			<View
+				style={{
+					flex: 1,
+					justifyContent: "center",
+					alignItems: "center",
+					marginTop: "5%",
+				}}
+			>
+				<TouchableOpacity
+					style={{ width: "70%", backgroundColor: "#FF7070", borderRadius: 10 }}
+				>
+					<Icon
+						name="controller-play"
+						type="entypo"
+						color="white"
+						size={width / 6.5}
+					/>
+				</TouchableOpacity>
+			</View>
+
+			<View style={{ flex: 3, justifyContent:"space-evenly" }}>
+				<TouchableOpacity
+					style={{ width: "80%", height: "18%", backgroundColor: "rgba(99, 255, 4, 0.3)", borderRadius: 10 }}
+				>
+					<Text>1</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{ width: "80%", height: "18%", backgroundColor: "rgba(255, 0, 0, 0.3)", borderRadius: 10 }}
+				>
+					<Text>1</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{ width: "80%", height: "18%", backgroundColor: "rgba(0, 41, 255, 0.3)", borderRadius: 10 }}
+				>
+					<Text>1</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={{ width: "80%", height: "18%", backgroundColor: "rgba(255, 199, 0, 0.3)", borderRadius: 10 }}
+				>
+					<Text>1</Text>
 				</TouchableOpacity>
 			</View>
 			{/* <Text>Home</Text>
