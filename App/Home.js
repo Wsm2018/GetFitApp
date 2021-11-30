@@ -20,6 +20,10 @@ export default function Home(props) {
 	const [exercises, setExercises] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [selectedEx, setSelectedEx] = useState(null);
+	const [selectedWorkTime, setSelectedWorkTime] = useState("");
+	const [selectedRestTime, setSelectedRestTime] = useState("");
+	const [sets, setSets] = useState(1);
+
 	const [totalTime, setTotalTime] = useState(null);
 
 	useEffect(() => {
@@ -97,26 +101,252 @@ export default function Home(props) {
 				</TouchableOpacity>
 			</View>
 
-			<View style={{ flex: 3, justifyContent:"space-evenly" }}>
+			<View
+				style={{
+					flex: 3,
+					justifyContent: "space-evenly",
+					alignItems: "center",
+				}}
+			>
 				<TouchableOpacity
-					style={{ width: "80%", height: "18%", backgroundColor: "rgba(99, 255, 4, 0.3)", borderRadius: 10 }}
+					style={{
+						width: "80%",
+						height: "18%",
+						backgroundColor: "rgba(99, 255, 4, 0.3)",
+						borderRadius: 10,
+						borderWidth: 1,
+						borderColor: "rgba(99, 255, 4, 1)",
+						justifyContent: "center",
+						flexDirection: "row",
+					}}
 				>
-					<Text>1</Text>
+					<View style={{ flex: 1, flexDirection: "row" }}>
+						<View style={{ flex: 1, justifyContent: "center" }}>
+							<Icon
+								color="rgba(99, 255, 4, 1)"
+								name="play-circle-outline"
+								type="ionicon"
+								size={35}
+							/>
+						</View>
+						<View
+							style={{
+								flex: 2,
+								justifyContent: "center",
+							}}
+						>
+							<Text
+								style={{
+									fontSize: 20,
+									fontFamily: "Montserrat",
+									fontWeight: "bold",
+									letterSpacing: 1,
+								}}
+							>
+								Work
+							</Text>
+						</View>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							justifyContent: "center",
+							alignItems: "flex-end",
+							marginRight: "5%",
+						}}
+					>
+						<Text
+							style={{
+								fontSize: 23,
+								color: "rgba(99, 255, 4, 1)",
+								fontFamily: "Montserrat",
+								fontWeight: "bold",
+								letterSpacing: 1,
+							}}
+						>
+							{selectedWorkTime.length !== 0 ? selectedWorkTime : "00:30"}
+						</Text>
+					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={{ width: "80%", height: "18%", backgroundColor: "rgba(255, 0, 0, 0.3)", borderRadius: 10 }}
+					style={{
+						width: "80%",
+						height: "18%",
+						backgroundColor: "rgba(255, 0, 0, 0.3)",
+						borderRadius: 10,
+						borderWidth: 1,
+						borderColor: "red",
+						justifyContent: "center",
+						flexDirection: "row",
+					}}
 				>
-					<Text>1</Text>
+					<View style={{ flex: 1, flexDirection: "row" }}>
+						<View style={{ flex: 1, justifyContent: "center" }}>
+							<Icon
+								color="red"
+								name="pause-circle-outline"
+								type="material"
+								size={35}
+							/>
+						</View>
+						<View
+							style={{
+								flex: 2,
+								justifyContent: "center",
+							}}
+						>
+							<Text
+								style={{
+									fontSize: 20,
+									fontFamily: "Montserrat",
+									fontWeight: "bold",
+									letterSpacing: 1,
+								}}
+							>
+								Rest
+							</Text>
+						</View>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							justifyContent: "center",
+							alignItems: "flex-end",
+							marginRight: "5%",
+						}}
+					>
+						<Text
+							style={{
+								fontSize: 23,
+								color: "red",
+								fontFamily: "Montserrat",
+								fontWeight: "bold",
+								letterSpacing: 1,
+							}}
+						>
+							{selectedWorkTime.length !== 0 ? selectedWorkTime : "00:30"}
+						</Text>
+					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={{ width: "80%", height: "18%", backgroundColor: "rgba(0, 41, 255, 0.3)", borderRadius: 10 }}
+					style={{
+						width: "80%",
+						height: "18%",
+						backgroundColor: "rgba(0, 41, 255, 0.3)",
+						borderRadius: 10,
+						borderWidth: 1,
+						borderColor: "rgb(0, 41, 255)",
+						justifyContent: "center",
+						flexDirection: "row",
+					}}
 				>
-					<Text>1</Text>
+					<View style={{ flex: 1, flexDirection: "row" }}>
+						<View style={{ flex: 1, justifyContent: "center" }}>
+							<Icon
+								color="rgb(0, 41, 255)"
+								name="repeat"
+								type="font-awesome"
+								size={30}
+							/>
+						</View>
+						<View
+							style={{
+								flex: 2,
+								justifyContent: "center",
+							}}
+						>
+							<Text
+								style={{
+									fontSize: 20,
+									fontFamily: "Montserrat",
+									fontWeight: "bold",
+									letterSpacing: 1,
+								}}
+							>
+								Repeat
+							</Text>
+						</View>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							justifyContent: "center",
+							alignItems: "flex-end",
+							marginRight: "5%",
+						}}
+					>
+						<Text
+							style={{
+								fontSize: 23,
+								color: "rgb(0, 41, 255)",
+								fontFamily: "Montserrat",
+								fontWeight: "bold",
+								letterSpacing: 1,
+							}}
+						>
+							{sets}
+						</Text>
+					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={{ width: "80%", height: "18%", backgroundColor: "rgba(255, 199, 0, 0.3)", borderRadius: 10 }}
+					style={{
+						width: "80%",
+						height: "18%",
+						backgroundColor: "rgba(255, 199, 0, 0.3)",
+						borderRadius: 10,
+						borderWidth: 1,
+						borderColor: "rgb(255, 199, 0)",
+						justifyContent: "center",
+						flexDirection: "row",
+					}}
 				>
-					<Text>1</Text>
+					<View style={{ flex: 1, flexDirection: "row" }}>
+						<View style={{ flex: 1, justifyContent: "center" }}>
+							<Icon
+								color="rgb(255, 199, 0)"
+								name="lightning-bolt"
+								type="material-community"
+								size={30}
+							/>
+						</View>
+						<View
+							style={{
+								flex: 2,
+								justifyContent: "center",
+							}}
+						>
+							<Text
+								style={{
+									fontSize: 20,
+									fontFamily: "Montserrat",
+									fontWeight: "bold",
+									letterSpacing: 1,
+								}}
+							>
+								Exercises
+							</Text>
+						</View>
+					</View>
+					<View
+						style={{
+							flex: 1,
+							justifyContent: "center",
+							alignItems: "flex-end",
+							marginRight: "5%",
+						}}
+					>
+						{/* <Text
+							style={{
+								fontSize: 23,
+								color: "rgb(0, 41, 255)",
+								fontFamily: "Montserrat",
+								fontWeight: "bold",
+								letterSpacing: 1,
+							}}
+						>
+							{sets}
+						</Text> */}
+					</View>
 				</TouchableOpacity>
 			</View>
 			{/* <Text>Home</Text>
