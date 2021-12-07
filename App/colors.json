@@ -1,20 +1,25 @@
 {
-  "main": "#FF5758",
-  "work": "#8AFFAB",
-  "rest": "#FF5959",
-  "sets": "#7A8FFF",
-  "exercises": "#FFE483",
-  "background": "#F6F6F6",
+	"main": "#FF5758",
+	"work": "#8AFFAB",
+	"rest": "#FF5959",
+	"sets": "#7A8FFF",
+	"exercises": "#FFE483",
+	"background": "#F6F6F6",
 
-  "homeWork1": "rgba(99, 255, 4, 0.2)",
-  "homeWork2": "rgba(99, 255, 4, 1)",
+	"homeWork1": "rgba(99, 255, 4, 0.2)",
+	"homeWork2": "rgba(99, 255, 4, 1)",
 
-  "homeRest1": "rgba(255, 0, 0, 0.2)",
-  "homeRest2": "red",
+	"homeRest1": "rgba(255, 0, 0, 0.2)",
+	"homeRest2": "red",
 
-  "homeSets1": "rgba(0, 41, 255, 0.2)",
-  "homeSets2": "rgb(0, 41, 255)",
+	"homeSets1": "rgba(0, 41, 255, 0.2)",
+	"homeSets2": "rgb(0, 41, 255)",
 
-  "homeExer1": "rgba(255, 199, 0, 0.2)",
-  "homeExer2": "rgb(255, 199, 0)"
+	"homeExer1": "rgba(255, 199, 0, 0.2)",
+	"homeExer2": "rgb(255, 199, 0)",
+
+	"inactive": "#bebebe",
+	"exerciseBg": "#F3F3F3"
 }
+
+

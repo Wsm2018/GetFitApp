@@ -51,9 +51,9 @@ export default function WorkModal(props) {
     }
     setValue(val);
 
-    // setTimeout(() => {
-    //   setOpenWorkModal(false);
-    // }, 1500);
+    setTimeout(() => {
+      setOpenWorkModal(false);
+    }, 1500);
   };
 
   return (
