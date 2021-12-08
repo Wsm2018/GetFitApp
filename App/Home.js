@@ -52,10 +52,19 @@ export default function Home(props) {
 	}, []);
 
 	const handleAdd = (item) => {
-		// const tempSelected = [...selectedEx];
-		// tempSelected.push({ ...item });
-		// setSelectedEx([...tempSelected]);
-    console.log(item)
+		const tempExercises = [...exercises];
+
+		tempExercises.map((exercise) => {
+			if (exercise.name === item.name) {
+				if (exercise.isSelected) {
+					exercise.isSelected = false;
+				} else {
+					exercise.isSelected = true;
+				}
+			}
+		});
+		setExercises([...tempExercises]);
+		// console.log(item)
 	};
 
 	return (
@@ -297,7 +306,7 @@ export default function Home(props) {
 					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
-        onPress={() => setOpenExerciseModal(true)}
+					onPress={() => setOpenExerciseModal(true)}
 					style={{
 						width: "80%",
 						height: "18%",

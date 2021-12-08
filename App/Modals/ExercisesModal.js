@@ -9,13 +9,16 @@ import {
 	Dimensions,
 	ScrollView,
 	Animated,
+	Image,
+	Alert,
 } from "react-native";
 import { Icon, Slider, Header } from "react-native-elements";
 import colors from "../colors.json";
+import Toast from 'react-native-toast-message';
 
 import Modal from "react-native-modal";
 import { StatusBar } from "expo-status-bar";
-import { color } from "react-native-reanimated";
+import { RadioButton } from "react-native-paper";
 
 const { height, width } = Dimensions.get("window");
 
@@ -32,13 +35,24 @@ export default function ExerciseModal(props) {
 
 	const Item = ({ item }) => (
 		<TouchableOpacity style={styles.item} onPress={() => handleAdd(item)}>
-			<Text style={styles.title}>{item.name}</Text>
+			<View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+				<RadioButton
+					status={item.isSelected ? "checked" : "unchecked"}
+					color={colors.exercises}
+				/>
+
+				<Text style={styles.title}>{item.name}</Text>
+			</View>
+			<View>
+				<Image
+					source={{ uri: item.blackImg }}
+					style={{ height: 50, width: 50 }}
+				/>
+			</View>
 		</TouchableOpacity>
 	);
 
 	const renderItem = ({ item }) => <Item item={item} />;
-
-	const [value, setValue] = useState("");
 
 	const confirm = () => {
 		// if (val.toString().length === 1) {
@@ -50,6 +64,10 @@ export default function ExerciseModal(props) {
 		// setTimeout(() => {
 		// 	setOpenExerciseModal(false);
 		// }, 1500);
+		const selectedExercises = exercises.filter(item => item.isSelected)
+		if(selectedExercises.length === 0) {
+			
+		}
 	};
 
 	return (
@@ -60,7 +78,7 @@ export default function ExerciseModal(props) {
 			style={styles.view}
 		>
 			<View style={styles.modal}>
-				<View style={{ flex: 1, alignItems: "center" }}>
+				{/* <View style={{ flex: 1, alignItems: "center" }}>
 					<View style={{ flex: 1, flexDirection: "row" }}>
 						<View style={{ justifyContent: "center" }}>
 							<Icon
@@ -89,7 +107,45 @@ export default function ExerciseModal(props) {
 							</Text>
 						</View>
 					</View>
-				</View>
+				</View> */}
+				<Header
+					backgroundColor={colors.exercises}
+					centerComponent={
+						<View style={{ flex: 1, flexDirection: "row" }}>
+							<View style={{ justifyContent: "center" }}>
+								<Icon
+									color="white"
+									name="lightning-bolt"
+									type="material-community"
+									size={30}
+								/>
+							</View>
+							<View
+								style={{
+									justifyContent: "center",
+									marginLeft: "1%",
+								}}
+							>
+								<Text
+									style={{
+										fontSize: 22,
+										fontFamily: "Montserrat-Regular",
+										fontWeight: "bold",
+										letterSpacing: 1,
+										color: "white",
+									}}
+								>
+									Exercises
+								</Text>
+							</View>
+						</View>
+					}
+					rightComponent={
+						<TouchableOpacity onPress={() => confirm()}>
+							<Icon name="checkcircleo" type="antdesign" color="white" size={30} />
+						</TouchableOpacity>
+					}
+				/>
 
 				<View style={{ flex: 8 }}>
 					<FlatList
@@ -99,6 +155,7 @@ export default function ExerciseModal(props) {
 					/>
 				</View>
 			</View>
+			<Toast type="error" position="bottom" text1="Hello" text2="World" autoHide={true} />
 			<StatusBar style="dark" backgroundColor={colors.exercises} />
 		</Modal>
 	);
@@ -120,8 +177,10 @@ const styles = StyleSheet.create({
 		padding: 20,
 		marginVertical: 8,
 		marginHorizontal: 16,
+		borderRadius: 10,
+		flexDirection: "row",
 	},
-    title:{
-        fontSize: 19
-    }
+	title: {
+		fontSize: 19,
+	},
 });
