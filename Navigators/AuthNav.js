@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, LogBox } from "react-native";
 import firebase from "firebase";
 import "firebase/auth";
-import Login from "./Login";
-import Register from "./Register";
-import Forgot from "./ForgotPassword";
+import Login from "../Auth/Login";
+import Register from "../Auth/Register";
+import Forgot from "../Auth/ForgotPassword";
 
 LogBox.ignoreAllLogs();
 

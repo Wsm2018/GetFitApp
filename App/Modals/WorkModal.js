@@ -11,7 +11,7 @@ import {
   Animated,
 } from "react-native";
 import { Icon, Slider } from "react-native-elements";
-import colors from "../colors.json";
+import colors from "../../colors.json";
 
 import Modal from "react-native-modal";
 import { StatusBar } from "expo-status-bar";
@@ -25,7 +25,7 @@ export default function WorkModal(props) {
     selectedWorkTime,
     setSelectedWorkTime,
   } = props;
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(selectedWorkTime);
 
   const seconds = [
     "5",
@@ -45,9 +45,9 @@ export default function WorkModal(props) {
   const setWorkTime = (val) => {
     console.log(val);
     if (val.toString().length === 1) {
-      setSelectedWorkTime("00:05");
+      setSelectedWorkTime(val);
     } else {
-      setSelectedWorkTime(`00:${val.toString()}`);
+      setSelectedWorkTime(val.toString());
     }
     setValue(val);
 
@@ -84,7 +84,7 @@ export default function WorkModal(props) {
                 style={{
                   fontSize: 30,
                   fontFamily: "Montserrat-Regular",
-                  fontWeight: "bold",
+                  // fontWeight: "bold",
                   letterSpacing: 1,
                   color: "white",
                 }}
@@ -98,7 +98,7 @@ export default function WorkModal(props) {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Text style={{ color: "white", fontSize: 50, fontWeight: "bold" }}>
-            {selectedWorkTime.length === 0 ? "00:00" : selectedWorkTime}
+            {`00:${selectedWorkTime}`}
           </Text>
         </View>
         <View style={{ flex: 8, flexDirection: "row" }}>

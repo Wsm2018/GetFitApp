@@ -11,7 +11,7 @@ import {
   Animated,
 } from "react-native";
 import { Icon, Slider } from "react-native-elements";
-import colors from "../colors.json";
+import colors from "../../colors.json";
 
 import Modal from "react-native-modal";
 import { StatusBar } from "expo-status-bar";
@@ -25,7 +25,7 @@ export default function RestModal(props) {
     selectedRestTime,
     setSelectedRestTime,
   } = props;
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(selectedRestTime);
 
   const seconds = [
     "5",
@@ -83,7 +83,7 @@ export default function RestModal(props) {
                 style={{
                   fontSize: 30,
                   fontFamily: "Montserrat-Regular",
-                  fontWeight: "bold",
+                  // fontWeight: "bold",
                   letterSpacing: 1,
                   color: "white",
                 }}
@@ -108,8 +108,8 @@ export default function RestModal(props) {
               alignItems: "center",
             }}
           >
-            {seconds.map((item) => (
-              <Text style={{ color: "white", fontSize: 20 }}>{item}</Text>
+            {seconds.map((item, index) => (
+              <Text key={index} style={{ color: "white", fontSize: 20 }}>{item}</Text>
             ))}
           </View>
           <View

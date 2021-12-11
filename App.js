@@ -10,43 +10,43 @@ import firebase from "firebase";
 import "firebase/app";
 import "firebase/auth";
 import db from "./db";
-import AuthContainer from "./Auth/AuthNav";
-import colors from "./App/colors.json";
+import AuthContainer from "./Navigators/AuthNav";
+import colors from "./colors.json";
+import AppContainer from "./Navigators/AppNav";
+// const AppContainer = createAppContainer(
+// 	createMaterialBottomTabNavigator(
+// 		{
+// 			Home: { screen: Home },
+// 			Profile: { screen: Profile },
+// 		},
+// 		{
+// 			initialRouteName: "Home",
+// 			activeColor: colors.main,
+// 			inactiveColor: colors.inactive,
+// 			barStyle: { backgroundColor: colors.background },
+// 			defaultNavigationOptions: ({ navigation }) => ({
+// 				tabBarIcon: ({ focused, horizontal, tintColor }) => {
+// 					const { routeName } = navigation.state;
+// 					let IconComponent = FontAwesome;
+// 					let iconName;
+// 					let tintColorColor;
+// 					if (routeName === "Home") {
+// 						iconName = "home";
+// 						tintColorColor = focused ? colors.main : colors.inactive;
+// 					} else if (routeName === "Profile") {
+// 						iconName = "user";
+// 						tintColorColor = focused ? colors.main : colors.inactive;
+// 					}
 
-const AppContainer = createAppContainer(
-	createMaterialBottomTabNavigator(
-		{
-			Home: { screen: Home },
-			Profile: { screen: Profile },
-		},
-		{
-			initialRouteName: "Home",
-			activeColor: colors.main,
-			inactiveColor: colors.inactive,
-			barStyle: { backgroundColor: colors.background },
-			defaultNavigationOptions: ({ navigation }) => ({
-				tabBarIcon: ({ focused, horizontal, tintColor }) => {
-					const { routeName } = navigation.state;
-					let IconComponent = FontAwesome;
-					let iconName;
-					let tintColorColor;
-					if (routeName === "Home") {
-						iconName = "home";
-						tintColorColor = focused ? colors.main : colors.inactive;
-					} else if (routeName === "Profile") {
-						iconName = "user";
-						tintColorColor = focused ? colors.main : colors.inactive;
-					}
-
-					// You can return any component that you like here!
-					return (
-						<IconComponent name={iconName} size={25} color={tintColorColor} />
-					);
-				},
-			}),
-		}
-	)
-);
+// 					// You can return any component that you like here!
+// 					return (
+// 						<IconComponent name={iconName} size={25} color={tintColorColor} />
+// 					);
+// 				},
+// 			}),
+// 		}
+// 	)
+// );
 
 export default function App() {
 	const [loggedIn, setLoggedIn] = useState(false);

@@ -11,7 +11,7 @@ import {
   Animated,
 } from "react-native";
 import { Icon, Slider } from "react-native-elements";
-import colors from "../colors.json";
+import colors from "../../colors.json";
 
 import Modal from "react-native-modal";
 import { StatusBar } from "expo-status-bar";
@@ -57,7 +57,7 @@ export default function RepeatModal(props) {
                 style={{
                   fontSize: 30,
                   fontFamily: "Montserrat-Regular",
-                  fontWeight: "bold",
+                  // fontWeight: "bold",
                   letterSpacing: 1,
                   color: "white",
                 }}
@@ -82,8 +82,8 @@ export default function RepeatModal(props) {
               alignItems: "center",
             }}
           >
-            {sets.map((item) => (
-              <Text style={{ color: "white", fontSize: 20 }}>{item}</Text>
+            {sets.map((item, index) => (
+              <Text key={index} style={{ color: "white", fontSize: 20 }}>{item}</Text>
             ))}
           </View>
           <View
