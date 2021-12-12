@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Alert,
 } from "react-native";
 import { Icon, Header } from "react-native-elements";
 import db from "../db";
@@ -33,6 +34,8 @@ export default function Home(props) {
 
   const [totalTime, setTotalTime] = useState(null);
 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     const unsub = db
       .firestore()
@@ -40,7 +43,7 @@ export default function Home(props) {
       .onSnapshot((querySnapshot) => {
         const workouts = [];
         querySnapshot.forEach((doc) => {
-          workouts.push({ id: doc.id, ...doc.data(), isSelected: false });
+          workouts.push({ id: doc.id, ...doc.data(), isSelected: false, started: false });
         });
         setExercises([...workouts]);
       });
@@ -50,33 +53,39 @@ export default function Home(props) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (selectedEx) {
-  //     let total = selectedWorkTime + selectedRestTime;
-
-  //   }
-  // }, [selectedEx]);
+  useEffect(() => {
+    getUser();
+  }, []);
 
   useEffect(() => {
     if (selectedEx && selectedEx.length > 0) exSelected();
     else noExSelection();
-  }, [selectedEx]);
+  }, [selectedEx, selectedSet, selectedRestTime, selectedWorkTime]);
+
+  const getUser = async () => {
+    const userRef = await db
+      .firestore()
+      .collection("Users")
+      .doc(db.auth().currentUser.uid)
+      .get();
+    const userData = userRef.data();
+    setUser(userData);
+  };
 
   const exSelected = () => {
     // console.log("selected", selectedEx);
-    let total = selectedWorkTime * selectedEx.length;
+    let total = Number(selectedWorkTime) * selectedEx.length;
     console.log("1", total);
-    total += selectedRestTime;
+    total += Number(selectedRestTime);
     console.log("2", total);
-    total *= selectedSet
-    console.log("3", total)
+    total *= selectedSet;
+    console.log("3", total);
     let mins = 0;
     let secs = 0;
     mins = (total / 60).toString().split(".")[0];
-    
-    console.log("mins",mins)
+    console.log("mins", mins);
     secs = (total % 60).toFixed(0);
-    console.log("secs",secs)
+    console.log("secs", secs);
 
     mins = formatNumber(mins, "min");
     secs = formatNumber(secs.toString(), "secs");
@@ -85,10 +94,15 @@ export default function Home(props) {
   };
 
   const noExSelection = () => {
-    let total = (selectedWorkTime + selectedRestTime) * selectedSet;
+    console.log("selected work", selectedWorkTime, " rest ", selectedRestTime);
+    let total =
+      (Number(selectedWorkTime) + Number(selectedRestTime)) * selectedSet;
+    console.log("total", total);
     let mins = 0;
     let secs = 0;
-    mins = (total / 60).toFixed(0);
+    mins = (total / 60).toString().split(".")[0];
+    console.log("mins", mins);
+
     secs = total % 60;
 
     mins = formatNumber(mins, "min");
@@ -121,6 +135,27 @@ export default function Home(props) {
     });
     setExercises([...tempExercises]);
     // console.log(item)
+  };
+
+  const startExercise = () => {
+    if (!selectedEx) {
+      Alert.alert("Please choose your workouts");
+      return;
+    }
+
+    db.firestore()
+      .collection("Workouts")
+      .add({ ...user, totalTime, selectedEx })
+      .then((data) => {
+        props.navigation.navigate("Start", {
+          selectedWorkTime,
+          selectedRestTime,
+          selectedSet,
+          user,
+          selectedEx,
+          workoutId: data.id,
+        });
+      });
   };
 
   return (
@@ -173,6 +208,7 @@ export default function Home(props) {
             backgroundColor: colors.main,
             borderRadius: 10,
           }}
+          onPress={() => startExercise()}
         >
           <Icon
             name="controller-play"
@@ -454,33 +490,6 @@ export default function Home(props) {
         setExercises={setExercises}
         handleAdd={handleAdd}
       />
-
-      {/* <Modal
-        isVisible={openWorkModal}
-        onSwipeComplete={() => setOpenWorkModal(false)}
-        swipeDirection={["down"]}
-        style={styles.view}
-      >
-        <View style={styles.modal}>
-          <Text>sdfs</Text>
-        </View>
-      </Modal> */}
-
-      {/* <Modal
-				testID={"modal"}
-				isVisible={openExerciseModal}
-				onSwipeComplete={() => setOpenExerciseModal(false)}
-				swipeDirection={["down"]}
-				style={styles.view}
-			>
-				<SafeAreaView style={styles.view}>
-					<FlatList
-						data={exercises}
-						renderItem={renderItem}
-						keyExtractor={(item) => item.id}
-					/>
-				</SafeAreaView>
-			</Modal> */}
       <StatusBar style="light" backgroundColor={colors.main} />
     </View>
   );

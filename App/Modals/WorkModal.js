@@ -44,13 +44,8 @@ export default function WorkModal(props) {
 
   const setWorkTime = (val) => {
     console.log(val);
-    if (val.toString().length === 1) {
-      setSelectedWorkTime(val);
-    } else {
-      setSelectedWorkTime(val.toString());
-    }
+    setSelectedWorkTime(val.toString());
     setValue(val);
-
     setTimeout(() => {
       setOpenWorkModal(false);
     }, 1500);
@@ -84,7 +79,6 @@ export default function WorkModal(props) {
                 style={{
                   fontSize: 30,
                   fontFamily: "Montserrat-Regular",
-                  // fontWeight: "bold",
                   letterSpacing: 1,
                   color: "white",
                 }}
@@ -120,20 +114,15 @@ export default function WorkModal(props) {
           >
             <Slider
               value={value}
-			//   animateTransitions={true}
-              //   onValueChange={(value) => setWorkTime(value)}
               maximumValue={60}
               minimumValue={5}
               orientation="vertical"
               step={5}
               style={{ height: height / 1.4 }}
-              // thumbTintColor="red"
               onSlidingComplete={setWorkTime}
               maximumTrackTintColor={colors.work}
               minimumTrackTintColor={colors.work}
               thumbStyle={{
-                // height: 20,
-                // width: 20,
                 backgroundColor: "transparent",
               }}
               thumbProps={{

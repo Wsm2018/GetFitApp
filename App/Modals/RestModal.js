@@ -43,11 +43,7 @@ export default function RestModal(props) {
   ];
 
   const setWorkTime = (val) => {
-    if (val.toString().length === 1) {
-      setSelectedRestTime("00:05");
-    } else {
-      setSelectedRestTime(`00:${val.toString()}`);
-    }
+    setSelectedRestTime(val.toString());
     setValue(val);
 
     setTimeout(() => {
@@ -97,7 +93,7 @@ export default function RestModal(props) {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Text style={{ color: "white", fontSize: 50, fontWeight: "bold" }}>
-            {selectedRestTime.length === 0 ? "00:00" : selectedRestTime}
+            {`00:${selectedRestTime}`}
           </Text>
         </View>
         <View style={{ flex: 8, flexDirection: "row" }}>
@@ -109,7 +105,9 @@ export default function RestModal(props) {
             }}
           >
             {seconds.map((item, index) => (
-              <Text key={index} style={{ color: "white", fontSize: 20 }}>{item}</Text>
+              <Text key={index} style={{ color: "white", fontSize: 20 }}>
+                {item}
+              </Text>
             ))}
           </View>
           <View
