@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  ScrollView,
+  Image,
+  FlatList,
 } from "react-native";
 import { Icon, Header } from "react-native-elements";
 import db from "../db";
@@ -36,7 +37,7 @@ export default function Start(props) {
         "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Fsquat.png?alt=media&token=2b4673aa-5a5f-438f-b2dd-95568cf17d7b",
       id: "5fBVuMMzw3mKJ7mtzR9S",
       isSelected: true,
-      started: false,
+      started: true,
       name: "Squats",
       whiteImg:
         "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fsquat.png?alt=media&token=a1457a51-297b-4a56-bb60-0d72593196ee",
@@ -71,19 +72,68 @@ export default function Start(props) {
       whiteImg:
         "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fsprint.png?alt=media&token=3d01e6be-5b04-4095-80c0-e6ea0fddc5e6",
     },
+    {
+      blackImg:
+        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Fsprint.png?alt=media&token=23233fa9-163e-47a6-a0af-f925290bedb5",
+      id: "8wN4zrnJ0HxbZWdigg7Z",
+      isSelected: true,
+      started: false,
+      name: "Sprint",
+      whiteImg:
+        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fsprint.png?alt=media&token=3d01e6be-5b04-4095-80c0-e6ea0fddc5e6",
+    },
+    {
+      blackImg:
+        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Fsprint.png?alt=media&token=23233fa9-163e-47a6-a0af-f925290bedb5",
+      id: "8wN4zrnJ0HxbZWdigg7Z",
+      isSelected: true,
+      started: false,
+      name: "Sprint",
+      whiteImg:
+        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fsprint.png?alt=media&token=3d01e6be-5b04-4095-80c0-e6ea0fddc5e6",
+    },
   ];
+
+  const renderItem = ({ item }) => <Item item={item} />;
+
+  const Item = ({ item }) => (
+    <TouchableOpacity
+      style={
+        item.started
+          ? [styles.item, styles.started]
+          : [styles.item, styles.notStarted]
+      }
+      onPress={() => handleAdd(item)}
+    >
+      <Image
+        source={item.started ? { uri: item.whiteImg } : { uri: item.blackImg }}
+        style={{ height: 50, width: 50 }}
+      />
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1.5 }}>
-        {/* <ScrollView horizontal={true}>
-          {selectedEx.map((item, index) => (
-            <View key={index} style={{ backgroundColor: "red" }}>
-              <Text>{item.name}</Text>
-            </View>
-          ))}
-        </ScrollView> */}
+      <View
+        style={{
+          flex: 1.5,
+          // justifyContent: 'center',
+          // alignItems: 'center'
+          // flexDirection: "row",
+        }}
+      >
+        <FlatList
+          // numColumns={5}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={selectedEx}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{ alignItems: "center" }}
+        />
       </View>
+
+      {/* </View> */}
       <View
         style={{
           flex: 1,
@@ -124,5 +174,30 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     // justifyContent: "center",
     // alignItems: "center",
+  },
+  item: {
+    // backgroundColor: colors.gray,
+    padding: 10,
+    // marginVertical: 8,
+    marginHorizontal: 5,
+    borderRadius: 100,
+    // width: width / 4,
+    // height: "50%",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 19,
+  },
+  started: {
+    backgroundColor: colors.main,
+    borderWidth: 1,
+    borderColor: colors.gray,
+    borderStyle: "dashed",
+  },
+  notStarted: {
+    backgroundColor: colors.notStarted,
+    borderWidth: 1,
+    borderColor: colors.black,
+    borderStyle: "dashed",
   },
 });

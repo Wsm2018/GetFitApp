@@ -21,7 +21,8 @@
 	"inactive": "#bebebe",
 	"exerciseBg": "#F3F3F3",
 	"white": "#fff",
-	"gray": "#4e4e4e"
+	"gray": "#4e4e4e",
+	"notStarted": "#C4C4C4"
 }
 
 
