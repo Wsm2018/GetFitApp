@@ -9,12 +9,13 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import MenuContent from "./MenuContent";
 const { width, height } = Dimensions.get("window");
 import Start from "../App/Start";
+import Completed from "../App/Completed";
 
 const HomeStack = createStackNavigator(
   {
-    Start,
     Home,
-
+    Start,
+    Completed,
   },
   {
     headerMode: null,
@@ -34,7 +35,7 @@ const DrawerRoutes = {
 
 const DrawerNav = createDrawerNavigator(DrawerRoutes, {
   drawerWidth: width - width / 4,
-  initialRouteName: "Home",
+  initialRouteName: "Settings",
   contentComponent: MenuContent,
 });
 

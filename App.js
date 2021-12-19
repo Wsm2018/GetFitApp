@@ -23,7 +23,8 @@ export default function App() {
 		"Montserrat-Medium": require("./assets/fonts/Montserrat-Medium.ttf"),
 		"Montserrat-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
 		"Montserrat-SemiBold": require("./assets/fonts/Montserrat-SemiBold.ttf"),
-		"Montserrat-MediumItalic": require("./assets/fonts/Montserrat-MediumItalic.ttf")
+		"Montserrat-MediumItalic": require("./assets/fonts/Montserrat-MediumItalic.ttf"),
+		"Montserrat-BoldItalic": require("./assets/fonts/Montserrat-BoldItalic.ttf")
 	});
 
 	useEffect(() => {
