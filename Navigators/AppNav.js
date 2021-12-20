@@ -10,12 +10,22 @@ import MenuContent from "./MenuContent";
 const { width, height } = Dimensions.get("window");
 import Start from "../App/Start";
 import Completed from "../App/Completed";
-
+import Performance from "../App/Performance";
 const HomeStack = createStackNavigator(
   {
     Home,
     Start,
     Completed,
+  },
+  {
+    headerMode: null,
+  }
+);
+
+const SettingsStack = createStackNavigator(
+  {
+    Performance,
+    Settings,
   },
   {
     headerMode: null,
@@ -29,7 +39,7 @@ const DrawerRoutes = {
   },
   Settings: {
     name: "Settings",
-    screen: Settings,
+    screen: SettingsStack,
   },
 };
 
