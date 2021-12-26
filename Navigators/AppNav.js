@@ -11,6 +11,7 @@ const { width, height } = Dimensions.get("window");
 import Start from "../App/Start";
 import Completed from "../App/Completed";
 import Performance from "../App/Performance";
+import FAQ from "../App/FAQ";
 const HomeStack = createStackNavigator(
   {
     Home,
@@ -24,8 +25,9 @@ const HomeStack = createStackNavigator(
 
 const SettingsStack = createStackNavigator(
   {
-    Performance,
     Settings,
+    Performance,
+    FAQ,
   },
   {
     headerMode: null,

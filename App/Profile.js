@@ -8,12 +8,13 @@ import {
   Alert,
   Image,
 } from "react-native";
-import { Icon, Header, Divider } from "react-native-elements";
+import { Icon, Header, Divider, Input } from "react-native-elements";
 import db from "../db";
 import { StatusBar } from "expo-status-bar";
 import colors from "../colors.json";
 const { height, width } = Dimensions.get("screen");
-
+import NonEdit from "./ProfileComponents/NonEdit";
+import Edit from "./ProfileComponents/Edit";
 const settings = [
   "Weekly Peformance",
   "FAQ",
@@ -23,6 +24,7 @@ const settings = [
 
 export default function Profile(props) {
   const [user, setUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     const unsub = db
@@ -39,7 +41,11 @@ export default function Profile(props) {
   }, []);
 
   const handleMove = (index) => {
-    index === 0 ? props.navigation.navigate("Performance") : null;
+    index === 0
+      ? props.navigation.navigate("Performance")
+      : index === 1
+      ? props.navigation.navigate("FAQ")
+      : null;
   };
 
   return (
@@ -57,20 +63,11 @@ export default function Profile(props) {
         }
       />
       <View style={styles.topView}>
-        <Image
-          source={{ uri: user && user.profilePic }}
-          style={{ width: width / 2.5, height: height / 5, borderRadius: 100 }}
-        />
-        <Text
-          style={{
-            marginTop: "3%",
-            color: "white",
-            fontFamily: "Montserrat-Bold",
-            fontSize: 30,
-          }}
-        >
-          {user && user.displayName}
-        </Text>
+        {!editMode ? (
+          <NonEdit user={user} setEditMode={setEditMode} />
+        ) : (
+          <Edit user={user} setEditMode={setEditMode} />
+        )}
       </View>
       <View style={styles.bottomView}>
         {settings.map((item, index) => (
@@ -113,16 +110,11 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     flex: 3,
-    // marginTop: "1%"
-    // justifyContent: "space-evenly",
   },
   settingItem: {
     flex: 1,
     flexDirection: "row",
     width: width,
-    // justifyContent: "space-between",
-    // marginTop: "5%",
-    // backgroundColor:"red",
     alignItems: "center",
     marginLeft: "5%",
   },

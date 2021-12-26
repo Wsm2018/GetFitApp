@@ -27,7 +27,7 @@ export default function Start(props) {
   const [completedSets, setCompletedSets] = useState(0);
   const [counter, setCounter] = useState(0);
   const [start, setStart] = useState(false);
-  const [percentage, setPercentage] = useState(0)
+  const [percentage, setPercentage] = useState(0);
   const [selectedEx, setSelectedEx] = useState([
     {
       blackImg:
@@ -92,7 +92,6 @@ export default function Start(props) {
   ]);
 
   useEffect(() => {
-    // console.log("i ran")
     let time = null;
     if (timer > 0) {
       console.log("timer -------------> ", timer);
@@ -100,23 +99,15 @@ export default function Start(props) {
     } else {
       if (start) {
         console.log("in here -------------------------------", counter);
-        // console.log("line 103", count);
-        // //
-        // console.log("line 105", count);
-        // if (counter >= 0) {
-
         if (counter < selectedEx.length) {
-          // console.log("line 108", count);
           changeExercise();
           setCounter(counter + 1);
           setTimer(10);
         } else {
-          // clearTimeout(timer);
           if (completedSets < selectedSet) {
             setCompletedSets(completedSets + 1);
             reset();
           }
-          // }
         }
       } else {
         console.log("counter 1", counter);
@@ -129,11 +120,10 @@ export default function Start(props) {
     return () => clearTimeout(time);
   }, [timer]);
 
-
   useEffect(() => {
-    if(start) {
+    if (start) {
       let per = timer / 10;
-      setPercentage(per * 100)
+      setPercentage(per * 100);
     }
   }, [timer]);
 
@@ -174,15 +164,9 @@ export default function Start(props) {
     </TouchableOpacity>
   );
 
-
-
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flex: 1.5,
-        }}
-      >
+      <View style={{ flex: 1.5 }}>
         <FlatList
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -216,13 +200,7 @@ export default function Start(props) {
           </Text>
         )}
       </View>
-      <View
-        style={{
-          flex: 4,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.progressBarContainer}>
         {start && (
           <AnimatedCircularProgress
             size={width / 1.2}
@@ -237,7 +215,6 @@ export default function Start(props) {
             {() => <Text style={{ fontSize: 30 }}>{timer}</Text>}
           </AnimatedCircularProgress>
         )}
-        {/* <Text style={{ fontSize: 30 }}>{timer}</Text> */}
       </View>
       <View
         style={{
@@ -246,12 +223,10 @@ export default function Start(props) {
           alignItems: "center",
         }}
       >
-        <Text style={{ fontFamily: "Montserrat-SemiBold", fontSize: 20 }}>
-          Sets Completed:
+        <Text style={styles.textStyle}>Sets Completed:</Text>
+        <Text style={styles.textStyle}>
+          {`${completedSets} / ${selectedSet}`}
         </Text>
-        <Text
-          style={{ fontFamily: "Montserrat-SemiBold", fontSize: 20 }}
-        >{`${completedSets} / ${selectedSet}`}</Text>
       </View>
 
       <StatusBar style="dark" backgroundColor={colors.background} />
@@ -263,17 +238,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    // justifyContent: "center",
-    // alignItems: "center",
   },
   item: {
-    // backgroundColor: colors.gray,
     padding: 10,
-    // marginVertical: 8,
     marginHorizontal: 5,
     borderRadius: 100,
-    // width: width / 4,
-    // height: "50%",
     alignItems: "center",
   },
   title: {
@@ -290,5 +259,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.black,
     borderStyle: "dashed",
+  },
+  progressBarContainer: {
+    flex: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textStyle: {
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 20,
   },
 });
