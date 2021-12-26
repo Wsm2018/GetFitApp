@@ -47,7 +47,7 @@ const DrawerRoutes = {
 
 const DrawerNav = createDrawerNavigator(DrawerRoutes, {
   drawerWidth: width - width / 4,
-  initialRouteName: "Settings",
+  initialRouteName: "Home",
   contentComponent: MenuContent,
 });
 

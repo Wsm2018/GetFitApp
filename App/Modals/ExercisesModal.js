@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  Dimensions,
-  ScrollView,
-  Animated,
-  Image,
-  Alert,
+	View,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	FlatList,
+	SafeAreaView,
+	Dimensions,
+	ScrollView,
+	Animated,
+	Image,
+	Alert,
 } from "react-native";
 import { Icon, Slider, Header } from "react-native-elements";
 import colors from "../../colors.json";
@@ -23,131 +23,131 @@ import { RadioButton } from "react-native-paper";
 const { height, width } = Dimensions.get("window");
 
 export default function ExerciseModal(props) {
-  const {
-    openExerciseModal,
-    setOpenExerciseModal,
-    setSelectedEx,
-    exercises,
-    handleAdd,
-  } = props;
+	const {
+		openExerciseModal,
+		setOpenExerciseModal,
+		setSelectedEx,
+		exercises,
+		handleAdd,
+	} = props;
 
-  const Item = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => handleAdd(item)}>
-      <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-        <RadioButton
-          status={item.isSelected ? "checked" : "unchecked"}
-          color={colors.exercises}
-        />
+	const Item = ({ item }) => (
+		<TouchableOpacity style={styles.item} onPress={() => handleAdd(item)}>
+			<View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+				<RadioButton
+					status={item.isSelected ? "checked" : "unchecked"}
+					color={colors.exercises}
+				/>
 
-        <Text style={styles.title}>{item.name}</Text>
-      </View>
-      <View>
-        <Image
-          source={{ uri: item.blackImg }}
-          style={{ height: 50, width: 50 }}
-        />
-      </View>
-    </TouchableOpacity>
-  );
+				<Text style={styles.title}>{item.name}</Text>
+			</View>
+			<View>
+				<Image
+					source={{ uri: item.blackImg }}
+					style={{ height: 50, width: 50 }}
+				/>
+			</View>
+		</TouchableOpacity>
+	);
 
-  const renderItem = ({ item }) => <Item item={item} />;
+	const renderItem = ({ item }) => <Item item={item} />;
 
-  const confirm = () => {
-    const selectedExercises = exercises.filter((item) => item.isSelected);
-    if (selectedExercises.length === 0) {
-      Alert.alert("Please select an exercise");
-    } else {
-      setSelectedEx(selectedExercises)
-      setOpenExerciseModal(false);
-    }
-  };
+	const confirm = () => {
+		const selectedExercises = exercises.filter((item) => item.isSelected);
+		if (selectedExercises.length === 0) {
+			Alert.alert("Please select an exercise");
+		} else {
+			setSelectedEx(selectedExercises);
+			setOpenExerciseModal(false);
+		}
+	};
 
-  return (
-    <Modal
-      isVisible={openExerciseModal}
-      onSwipeComplete={() => setOpenExerciseModal(false)}
-      swipeDirection={["down"]}
-      style={styles.view}
-    >
-      <View style={styles.modal}>
-        <Header
-          backgroundColor={colors.exercises}
-          centerComponent={
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <View style={{ justifyContent: "center" }}>
-                <Icon
-                  color="white"
-                  name="lightning-bolt"
-                  type="material-community"
-                  size={30}
-                />
-              </View>
-              <View
-                style={{
-                  justifyContent: "center",
-                  marginLeft: "1%",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 22,
-                    fontFamily: "Montserrat-Regular",
-                    // fontWeight: "bold",
-                    letterSpacing: 1,
-                    color: "white",
-                  }}
-                >
-                  Exercises
-                </Text>
-              </View>
-            </View>
-          }
-          rightComponent={
-            <TouchableOpacity onPress={() => confirm()}>
-              <Icon
-                name="checkcircleo"
-                type="antdesign"
-                color="white"
-                size={30}
-              />
-            </TouchableOpacity>
-          }
-        />
+	return (
+		<Modal
+			isVisible={openExerciseModal}
+			onSwipeComplete={() => setOpenExerciseModal(false)}
+			swipeDirection={["down"]}
+			style={styles.view}
+		>
+			<View style={styles.modal}>
+				<Header
+					backgroundColor={colors.exercises}
+					centerComponent={
+						<View style={{ flex: 1, flexDirection: "row" }}>
+							<View style={{ justifyContent: "center" }}>
+								<Icon
+									color="white"
+									name="lightning-bolt"
+									type="material-community"
+									size={30}
+								/>
+							</View>
+							<View
+								style={{
+									justifyContent: "center",
+									marginLeft: "1%",
+								}}
+							>
+								<Text
+									style={{
+										fontSize: 22,
+										fontFamily: "Montserrat-Regular",
+										// fontWeight: "bold",
+										letterSpacing: 1,
+										color: "white",
+									}}
+								>
+									Exercises
+								</Text>
+							</View>
+						</View>
+					}
+					rightComponent={
+						<TouchableOpacity onPress={() => confirm()}>
+							<Icon
+								name="checkcircleo"
+								type="antdesign"
+								color="white"
+								size={30}
+							/>
+						</TouchableOpacity>
+					}
+				/>
 
-        <View style={{ flex: 8 }}>
-          <FlatList
-            data={exercises}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      </View>
+				<View style={{ flex: 8 }}>
+					<FlatList
+						data={exercises}
+						renderItem={renderItem}
+						keyExtractor={(item) => item.id}
+					/>
+				</View>
+			</View>
 
-      <StatusBar style="dark" backgroundColor={colors.exercises} />
-    </Modal>
-  );
+			<StatusBar style="dark" backgroundColor={colors.exercises} />
+		</Modal>
+	);
 }
 
 const styles = StyleSheet.create({
-  view: {
-    justifyContent: "flex-end",
-    margin: 0,
-  },
-  modal: {
-    flex: 1,
-    backgroundColor: colors.exercises,
-    // height: height,
-    // width: width,
-  },
-  item: {
-    backgroundColor: colors.exerciseBg,
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
-    flexDirection: "row",
-  },
-  title: {
-    fontSize: 19,
-  },
+	view: {
+		justifyContent: "flex-end",
+		margin: 0,
+	},
+	modal: {
+		flex: 1,
+		backgroundColor: colors.exercises,
+		// height: height,
+		// width: width,
+	},
+	item: {
+		backgroundColor: colors.exerciseBg,
+		padding: 20,
+		marginVertical: 8,
+		marginHorizontal: 16,
+		borderRadius: 10,
+		flexDirection: "row",
+	},
+	title: {
+		fontSize: 19,
+	},
 });
