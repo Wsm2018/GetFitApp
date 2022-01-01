@@ -27,7 +27,7 @@ const SideMenuHeaders = ({ headerStyle, user }) => {
         />
       </View>
       <View style={styles.headerTextStyle}>
-        <Text style={{ color: colors.white, fontWeight: "bold", fontSize: 18 }}>
+        <Text style={{ color: colors.white,fontFamily: "Montserrat-Bold", fontSize: 18 }}>
           {user ? user.displayName : "loading.."}
         </Text>
       </View>

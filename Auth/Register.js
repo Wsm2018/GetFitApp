@@ -96,7 +96,7 @@ export default function Register(props) {
           >
             <Input
               placeholder="Email"
-              inputStyle={{ color: "white" }}
+              inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               inputContainerStyle={{ width: "90%" }}
               onChangeText={(v) => {
@@ -135,7 +135,7 @@ export default function Register(props) {
             }}
           >
             <Input
-              inputStyle={{ color: "white" }}
+              inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               placeholder="UserName"
               secureTextEntry={true}
               onChangeText={(v) => {
@@ -171,7 +171,7 @@ export default function Register(props) {
             }}
           >
             <Input
-              inputStyle={{ color: "white" }}
+              inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               placeholder="Password"
               secureTextEntry={true}
               onChangeText={(v) => {
@@ -218,7 +218,7 @@ export default function Register(props) {
               borderRadius: 50,
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}>
               Register
             </Text>
           </TouchableOpacity>
@@ -241,12 +241,12 @@ export default function Register(props) {
               marginBottom: "10%",
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}>
               Already have an account?{" "}
             </Text>
             <TouchableOpacity onPress={() => setAuthScreen("login")}>
               <Text
-                style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}
               >
                 Sign In
               </Text>

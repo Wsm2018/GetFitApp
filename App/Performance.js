@@ -48,7 +48,7 @@ export default function Peformance(props) {
   useEffect(() => {
     const unsub = db
       .firestore()
-      .collection("Test")
+      .collection("Workouts")
       .where("user", "==", db.auth().currentUser.uid)
       .where("date", ">=", moment(startDate).format("YYYY-MM-DD"))
       .where("date", "<=", moment(endDate).format("YYYY-MM-DD"))

@@ -19,12 +19,27 @@ const success = require("../assets/success.png");
 export default function Completed(props) {
   return (
     <View style={styles.container}>
+      <Header
+        containerStyle={{
+          borderBottomColor: colors.main,
+          borderBottomWidth: 1,
+        }}
+        backgroundColor={colors.main}
+        leftComponent={
+          <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
+            <Icon name="menu" type="feather" color={colors.white} size={25} />
+          </TouchableOpacity>
+        }
+      />
       <View style={styles.topView}>
         <Image source={success} style={{ width: width / 2 }} />
         <Text style={styles.textStyle}>Workout Completed</Text>
       </View>
       <View style={styles.bottomView}>
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Settings")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => props.navigation.navigate("Settings")}
+        >
           <Icon
             name="clipboard-notes"
             type="foundation"
@@ -34,7 +49,7 @@ export default function Completed(props) {
           <Text style={styles.buttonText}>summary</Text>
         </TouchableOpacity>
       </View>
-      <StatusBar style="dark" backgroundColor={colors.background} />
+      <StatusBar style="light" backgroundColor={colors.main} />
     </View>
   );
 }

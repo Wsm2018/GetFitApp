@@ -74,7 +74,7 @@ function Login(props) {
           >
             <Input
               placeholder="Email"
-              inputStyle={{ color: "white" }}
+              inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               inputContainerStyle={{ width: "90%" }}
               onChangeText={(v) => setEmail(v)}
@@ -110,7 +110,7 @@ function Login(props) {
             }}
           >
             <Input
-              inputStyle={{ color: "white" }}
+              inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               placeholder="Password"
               secureTextEntry={true}
               onChangeText={(v) => setPassword(v)}
@@ -139,7 +139,13 @@ function Login(props) {
             style={{ flex: 0.5, alignItems: "flex-end", marginRight: "15%" }}
             onPress={() => setAuthScreen("forgot")}
           >
-            <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 16,
+                fontFamily: "Montserrat-Bold",
+              }}
+            >
               Forgot Password ?
             </Text>
           </TouchableOpacity>
@@ -162,7 +168,13 @@ function Login(props) {
               borderRadius: 50,
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                fontFamily: "Montserrat-Bold",
+              }}
+            >
               Log In
             </Text>
           </TouchableOpacity>
@@ -185,12 +197,22 @@ function Login(props) {
               marginBottom: "10%",
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                fontFamily: "Montserrat-Bold",
+              }}
+            >
               Don't have an account?{" "}
             </Text>
             <TouchableOpacity onPress={() => setAuthScreen("register")}>
               <Text
-                style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                style={{
+                  color: "white",
+                  fontSize: 18,
+                  fontFamily: "Montserrat-Bold",
+                }}
               >
                 Sign Up
               </Text>

@@ -91,19 +91,15 @@ export default function RepeatModal(props) {
           >
             <Slider
               value={value}
-              // onValueChange={(value) => setWorkTime(value)}
               maximumValue={10}
               minimumValue={1}
               orientation="vertical"
               step={1}
               style={{ height: height / 1.4 }}
-              // thumbTintColor="red"
               onSlidingComplete={setWorkTime}
               maximumTrackTintColor={colors.sets}
               minimumTrackTintColor={colors.sets}
               thumbStyle={{
-                // height: 20,
-                // width: 20,
                 backgroundColor: "transparent",
               }}
               thumbProps={{

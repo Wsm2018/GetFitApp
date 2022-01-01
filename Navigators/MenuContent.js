@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     fontSize:18,
     marginLeft: 8,
     width: "100%",
+    fontFamily: "Montserrat-Regular"
   },
   mainViewStyle: {
     backgroundColor: colors.background,

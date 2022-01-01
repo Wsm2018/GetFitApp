@@ -62,7 +62,7 @@ export default function Forgot(props) {
           >
             <Input
               placeholder="Email"
-              inputStyle={{ color: "white" }}
+              inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               leftIconContainerStyle={{ marginRight: "5%" }}
               inputContainerStyle={{ width: "90%" }}
               onChangeText={(v) => {
@@ -112,7 +112,7 @@ export default function Forgot(props) {
               borderRadius: 50,
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}>
               Reset Password
             </Text>
           </TouchableOpacity>
@@ -135,12 +135,12 @@ export default function Forgot(props) {
               marginBottom: "10%",
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}>
               Back to{" "}
             </Text>
             <TouchableOpacity onPress={() => setAuthScreen("login")}>
               <Text
-                style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold"}}
               >
                 Sign In
               </Text>
