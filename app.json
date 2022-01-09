@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "final_proj",
-    "slug": "final_proj",
+    "name": "GetFit",
+    "slug": "GetFit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,13 +13,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wasim.getfit",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.wasim.getfit",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

@@ -16,7 +16,7 @@ import background from "../assets/background.jpg";
 import { Input, Icon, Divider } from "react-native-elements";
 import joi from "react-native-joi";
 import firebase from "firebase";
-
+import "firebase/auth";
 const { height, width } = Dimensions.get("screen");
 
 const schema = joi.object().keys({
@@ -54,7 +54,7 @@ export default function Register(props) {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        firebase.firestore().collection("User").add({
+        firebase.firestore().collection("Users").doc(user.user.uid).set({
           email: email,
           displayName: username,
           profilePic:
@@ -137,7 +137,6 @@ export default function Register(props) {
             <Input
               inputStyle={{ color: "white", fontFamily: "Montserrat-Regular" }}
               placeholder="UserName"
-              secureTextEntry={true}
               onChangeText={(v) => {
                 if (showUserNameErr) setUserNameErr(false);
                 setUserName(v);
@@ -218,7 +217,13 @@ export default function Register(props) {
               borderRadius: 50,
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                fontFamily: "Montserrat-Bold",
+              }}
+            >
               Register
             </Text>
           </TouchableOpacity>
@@ -241,12 +246,22 @@ export default function Register(props) {
               marginBottom: "10%",
             }}
           >
-            <Text style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                fontFamily: "Montserrat-Bold",
+              }}
+            >
               Already have an account?{" "}
             </Text>
             <TouchableOpacity onPress={() => setAuthScreen("login")}>
               <Text
-                style={{ color: "white", fontSize: 18, fontFamily: "Montserrat-Bold" }}
+                style={{
+                  color: "white",
+                  fontSize: 18,
+                  fontFamily: "Montserrat-Bold",
+                }}
               >
                 Sign In
               </Text>

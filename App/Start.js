@@ -22,65 +22,14 @@ export default function Start(props) {
   const selectedRestTime = navigation.getParam("selectedRestTime", 30);
   const selectedSet = navigation.getParam("selectedSet", 3);
   const user = navigation.getParam("user", "No user");
-  //   const selectedEx = navigation.getParam("selectedEx", "No selected Exercises");
+  const selectedExer = navigation.getParam("selectedEx", "No selected Exercises");
   const workoutId = navigation.getParam("workoutId", "No workout ID");
   const [timer, setTimer] = useState(3);
   const [completedSets, setCompletedSets] = useState(0);
   const [counter, setCounter] = useState(0);
   const [start, setStart] = useState(false);
   const [percentage, setPercentage] = useState(0);
-  const [selectedEx, setSelectedEx] = useState([
-    {
-      blackImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Fsquat.png?alt=media&token=2b4673aa-5a5f-438f-b2dd-95568cf17d7b",
-      id: "5fBVuMMzw3mKJ7mtzR9S",
-      isSelected: true,
-      started: true,
-      name: "Squats",
-      whiteImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fsquat.png?alt=media&token=a1457a51-297b-4a56-bb60-0d72593196ee",
-    },
-    {
-      blackImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Frest.png?alt=media&token=765e9789-d8dc-4308-8a16-91478d4a23f2",
-      id: uuid.v4(),
-      isSelected: true,
-      name: "Rest",
-      started: false,
-      whiteImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Frest-white.png?alt=media&token=1bfd23d5-4248-42ad-a6b1-0b740b47a224",
-    },
-    {
-      blackImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Fbicyclekicks.png?alt=media&token=38f63606-1698-495c-ad37-6817d20f040d",
-      id: "8egRpbgMCfpZOZzm3yGX",
-      isSelected: true,
-      started: false,
-      name: "Bicycle Kicks",
-      whiteImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fbicyclekicks.png?alt=media&token=8bea5fbb-1615-46ed-8790-7f16e32bf4fd",
-    },
-    {
-      blackImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Frest.png?alt=media&token=765e9789-d8dc-4308-8a16-91478d4a23f2",
-      id: uuid.v4(),
-      isSelected: true,
-      name: "Rest",
-      started: false,
-      whiteImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Frest-white.png?alt=media&token=1bfd23d5-4248-42ad-a6b1-0b740b47a224",
-    },
-    {
-      blackImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/black%2Fsprint.png?alt=media&token=23233fa9-163e-47a6-a0af-f925290bedb5",
-      id: "ergergergfdf23534",
-      isSelected: true,
-      started: false,
-      name: "Sprint 2",
-      whiteImg:
-        "https://firebasestorage.googleapis.com/v0/b/getfit-df50e.appspot.com/o/white%2Fsprint.png?alt=media&token=3d01e6be-5b04-4095-80c0-e6ea0fddc5e6",
-    },
-  ]);
+  const [selectedEx, setSelectedEx] = useState([...selectedExer]);
 
   useEffect(() => {
     let time = null;
@@ -94,9 +43,9 @@ export default function Start(props) {
           changeExercise();
           setCounter(counter + 1);
           if (selectedEx[counter].name === "Rest") {
-            setTimer(15);
+            setTimer(selectedRestTime);
           } else {
-            setTimer(10);
+            setTimer(selectedWorkTime);
           }
         } else {
           if (completedSets < selectedSet) {
@@ -109,7 +58,7 @@ export default function Start(props) {
       } else {
         console.log("counter 1", counter);
         setCounter(counter + 1);
-        setTimer(10);
+        setTimer(selectedWorkTime);
         setStart(true);
         console.log("counter 2", counter);
       }
@@ -118,13 +67,13 @@ export default function Start(props) {
   }, [timer]);
 
   useEffect(() => {
-    console.log("agrflkAENMRFL;AEKMF",counter)
+    console.log("agrflkAENMRFL;AEKMF", counter);
     if (start) {
-      if (selectedEx[counter-1].name === "Rest") {
-        let per = timer / 15;
+      if (selectedEx[counter - 1].name === "Rest") {
+        let per = timer / selectedRestTime;
         setPercentage(per * 100);
       } else {
-        let per = timer / 10;
+        let per = timer / selectedWorkTime;
         setPercentage(per * 100);
       }
     }
@@ -142,14 +91,14 @@ export default function Start(props) {
 
   const reset = () => {
     console.log("completedSets", completedSets);
-    if ((completedSets+1) === selectedSet) {
+    if (completedSets + 1 === selectedSet) {
       props.navigation.navigate("Completed");
     } else {
       let tempSelected = [...selectedEx];
       tempSelected.map((item) => (item.started = false));
       tempSelected[0].started = true;
       setCounter(1);
-      setTimer(10);
+      setTimer(selectedWorkTime);
       setSelectedEx(tempSelected);
     }
   };
